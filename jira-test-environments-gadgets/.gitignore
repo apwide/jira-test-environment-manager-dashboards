@@ -1,0 +1,15 @@
+/.settings
+.settings
+/target
+/.classpath
+.classpath
+/.DS_Store
+.DS_Store
+/bin/
+/chromedriver.log
+../.DS_Store
+/../.DS_Store
+/javascript/
+/node_modules/
+/yarn.lock
+/yarn-error.log
