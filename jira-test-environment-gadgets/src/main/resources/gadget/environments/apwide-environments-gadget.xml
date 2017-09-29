@@ -27,10 +27,9 @@
         #requireResource("com.atlassian.jira.gadgets:common")
         #requireResource("com.apwide.test-environment-gadgets:apwide-env-gadget-environments-resources")
        	<script type="text/javascript">
-			var ATLASSIAN_BASE_URL =  "__ATLASSIAN_BASE_URL__"
-    	</script>
-	    #includeResources()
+					var ATLASSIAN_BASE_URL =  "__ATLASSIAN_BASE_URL__"
+    		</script>
+	    	#includeResources()
         ]]>
 	</Content>
 </Module>
-

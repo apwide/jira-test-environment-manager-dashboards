@@ -1,3 +1,19 @@
+function toTableRecord (environment) {
+  let record = {
+    application: environment.application.name,
+    category: environment.category.name
+  }
+  return record
+}
+
+function toTableRecords (environments) {
+  let tableRecords = []
+  for (let environment of environments) {
+    tableRecords.push(toTableRecord(environment))
+  }
+  return tableRecords
+}
+
 ;(function () {
   var gadget = AJS.Gadget({
     baseUrl: ATLASSIAN_BASE_URL,
@@ -18,7 +34,7 @@
               label: 'No',
               value: 'false'
             } ]
-          }, AJS.gadget.fields.nowConfigured() ]
+          }, AJS.gadget.fields.nowConfigured() ] 
         }
       }
     },
@@ -30,33 +46,22 @@
 
         var gadget = this
 
-        let output = `<table id="delayedSortedTable" class="aui apwide-gadget-table issue-table aui-table-sortable aui aui-table-interactive table-hover-row">
+        let output = `<table id="my-final-table" class="table table-bordered">
                         <thead>
-                          <tr>
-                            <th class="aui-table-column-application">Application</th>
-                            <th>Category</th>
-                            <th>Deployed Version</th>
-                            <th class="aui-table-column-unsortable">Status</th>
-                          <tr>
+                          <th>Application</th>
+                          <th>Category</th>
                         </thead>
-                        <tbody>`
-
-        let environments = args.environments
-        for (var environment of environments) {
-          output += `<tr>
-                      <td>${environment.application.name}</td>
-                      <td>${environment.category.name}</td>
-                      <td>${'todo'}</td>
-                      <td>${'todo'}</td>
-                    </tr>`
-        }
-
-        output += `</tbody>
-                  </table>`
+                        <tbody>
+                        </tbody>
+                      </table>`
 
         gadget.getView().html(output)
 
-        AJS.tablessortable.setTableSortable(AJS.$('#delayedSortedTable'))
+        AJS.$('#my-final-table').dynatable({
+          dataset: {
+            records: toTableRecords(args.environments)
+          }
+        })
       },
       args: [ {
         key: 'environments',
