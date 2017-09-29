@@ -1,50 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.apwide</groupId>
-    <artifactId>test-environment-gadgets</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.apwide</groupId>
+	<artifactId>test-environment-gadgets</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 
-    <organization>
-        <name>Apwide</name>
-        <url>https://apwide.com</url>
-    </organization>
+	<organization>
+		<name>Apwide</name>
+		<url>https://apwide.com</url>
+	</organization>
 
-    <name>Apwide Test Environments Gadgets</name>
-    <description>This is an Apwide app providing gadgets to display test environments information in Atlassian apps</description>
-    <packaging>atlassian-plugin</packaging>
+	<name>Apwide Test Environments Gadgets</name>
+	<description>This is an Apwide app providing gadgets to display test environments information in Atlassian apps</description>
+	<packaging>atlassian-plugin</packaging>
 
-    <dependencies>
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.atlassian.maven.plugins</groupId>
-                <artifactId>maven-refapp-plugin</artifactId>
-                <version>${amps.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <productVersion>${refapp.version}</productVersion>
-                    <enableQuickReload>true</enableQuickReload>
-                    <enableFastdev>false</enableFastdev>
-                    <instructions>
-                        <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
-                        <Spring-Context>*</Spring-Context>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    
-    <properties>
-        <platform.version>3.0.0</platform.version>
-        <refapp.version>3.3.6</refapp.version>
-        <amps.version>6.2.11</amps.version>
-        <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
-    </properties>
+	<dependencies>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.atlassian.maven.plugins</groupId>
+				<artifactId>maven-refapp-plugin</artifactId>
+				<version>${amps.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<productVersion>${refapp.version}</productVersion>
+					<quickReloadVersion>2.0.0</quickReloadVersion>
+					<enableQuickReload>true</enableQuickReload>
+					<enableFastdev>false</enableFastdev>
+					<instructions>
+						<Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
+						<Spring-Context>*</Spring-Context>
+					</instructions>
+					<compressResources>false</compressResources>
+					<systemPropertyVariables>
+						<!-- We need to tell AMPS to stop looking at our source now, otherwise 
+							if we run `atlas-run` or `atlas-debug` to check our plugin, it will load 
+							our code out of src/main/resources, which would be very confusing! -->
+						<plugin.resource.directories>${project.build.outputDirectory}</plugin.resource.directories>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<installDirectory>${project.build.directory}</installDirectory>
+					<nodeVersion>v6.9.0</nodeVersion>
+					<yarnVersion>v0.21.3</yarnVersion>
+				</configuration>
+				<executions>
+					<execution>
+						<id>step-1-set-up-environment</id>
+						<goals>
+							<goal>install-node-and-yarn</goal>
+						</goals>
+						<phase>initialize</phase>
+						<inherited>false</inherited>
+					</execution>
+					<execution>
+						<id>step-2-install-frontend-dependencies</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>install --verbose</arguments>
+						</configuration>
+						<phase>initialize</phase>
+						<inherited>false</inherited>
+					</execution>
+					<execution>
+						<id>step-3-compile-the-ui</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>build</arguments>
+						</configuration>
+						<phase>process-resources</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<properties>
+		<platform.version>3.0.0</platform.version>
+		<refapp.version>3.3.6</refapp.version>
+		<amps.version>6.2.11</amps.version>
+		<atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
+	</properties>
 
 </project>

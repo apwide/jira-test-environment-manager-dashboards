@@ -1,0 +1,40 @@
+{
+  "presets": [
+    // intentionally empty. We cannot use presets, because
+    // the 'sensible' ones include configuration we cannot consume
+    // (e.g., auto strict mode).
+    // please manually add the babel transforms. Sorry :(
+  ],
+  "plugins": [
+    // alphabetical order please! git-merge and your colleagues will thank you.
+    "check-es2015-constants",
+    "transform-es2015-arrow-functions",
+    "transform-es2015-block-scoped-functions",
+    "transform-es2015-block-scoping",
+    "transform-es2015-classes",
+    "transform-es2015-computed-properties",
+    "transform-es2015-destructuring",
+    "transform-es2015-duplicate-keys",
+    "transform-es2015-for-of",
+    "transform-es2015-function-name",
+    "transform-es2015-literals",
+    "transform-es2015-object-super",
+    "transform-es2015-parameters",
+    "transform-es2015-shorthand-properties",
+    "transform-es2015-spread",
+    "transform-es2015-sticky-regex",
+    "transform-es2015-template-literals",
+    "transform-es2015-typeof-symbol",
+    "transform-es2015-unicode-regex",
+    ["transform-strict-mode", {
+      // we use function-level strict mode; transforming it
+      // would be terribly destructive to batched files in production
+      // because some of our code is very much not strict.
+      "strict": false
+    }]
+  ],
+  // Avoid compiling our vendor libraries, since they're assumed to be production-ready as-is.
+  "ignore": [
+    "**/vendor/**/*.js"
+  ]
+}

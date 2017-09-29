@@ -6,7 +6,7 @@
         <param name="plugin-icon">images/apwide-environments-gadget-icon.png</param>
         <param name="plugin-logo">images/apwide-environments-gadget-logo.png</param>
     </plugin-info>
-    
+
     <!-- GADGETS -->
 
 	<gadget key="apwide-env-gadget-environments" name="Apwide Environments Gadget"
@@ -17,7 +17,10 @@
 	<!-- Webresources for Environments Gadget -->
 	<web-resource key="apwide-env-gadget-environments-resources" name="apwide-env-gadget-environments-resources">
 		<dependency>com.atlassian.auiplugin:ajs</dependency>
+		<dependency>com.atlassian.auiplugin:aui-table-sortable</dependency>
 		<resource type="download" name="images/" location="gadget/environments/images" />
+		<resource type="download" name="gadget.js" location="gadget/environments/gadget.js" />
+    <resource type="download" name="gadget.css" location="gadget/environments/gadget.css" />
 		<context>apwide-env-gadget-environments</context>
 	</web-resource>
 
