@@ -29,6 +29,7 @@ function toTableRecords (environments) {
 ;(function () {
   var gadget = AJS.Gadget({
     baseUrl: ATLASSIAN_BASE_URL,
+    useOauth: ATLASSIAN_BASE_URL + '/rest/gadget/1.0/currentUser',
     config: {
       descriptor: function (args) {
         var gadget = this
