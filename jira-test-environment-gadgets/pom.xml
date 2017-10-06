@@ -42,8 +42,8 @@
 					</jvmArgs>
 					<compressResources>false</compressResources>
 					<systemPropertyVariables>
-						<!-- We need to tell AMPS to stop looking at our source now, otherwise 
-							if we run `atlas-run` or `atlas-debug` to check our plugin, it will load 
+						<!-- We need to tell AMPS to stop looking at our source now, otherwise
+							if we run `atlas-run` or `atlas-debug` to check our plugin, it will load
 							our code out of src/main/resources, which would be very confusing! -->
 						<plugin.resource.directories>${project.build.outputDirectory}</plugin.resource.directories>
 					</systemPropertyVariables>
@@ -94,8 +94,8 @@
 	</build>
 
 	<properties>
+		<jira.version>7.5.0</jira.version>
 		<platform.version>3.0.0</platform.version>
-		<refapp.version>3.3.6</refapp.version>
 		<amps.version>6.2.11</amps.version>
 		<atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
 	</properties>

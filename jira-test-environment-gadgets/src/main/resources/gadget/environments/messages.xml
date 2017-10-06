@@ -1,5 +1,4 @@
 <messagebundle>
-	<msg name="gadget.environments.title">Apwide Environments List</msg>
-	<msg name="gadget.environments.title.url">https://www.apwide.com</msg>
+	<msg name="gadget.environments.title">Apwide Environments</msg>
 	<msg name="gadget.environments.description">Display Apwide environments information</msg>
 </messagebundle>

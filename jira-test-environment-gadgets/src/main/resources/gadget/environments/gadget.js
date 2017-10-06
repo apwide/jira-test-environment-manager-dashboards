@@ -29,7 +29,7 @@ function toTableRecords (environments) {
 ;(function () {
   var gadget = AJS.Gadget({
     baseUrl: ATLASSIAN_BASE_URL,
-    useOauth: ATLASSIAN_BASE_URL + '/rest/gadget/1.0/currentUser',
+    useOauth: '/rest/gadget/1.0/currentUser',
     config: {
       descriptor: function (args) {
         var gadget = this
@@ -38,7 +38,7 @@ function toTableRecords (environments) {
             userpref: 'displayName',
             label: gadget.getMsg('property.label'),
             description: gadget.getMsg('property.description'),
-            type: 'select',
+            type: 'multiselect',
             selected: gadget.getPref('displayName'),
             options: [ {
               label: 'Yes',
@@ -46,8 +46,17 @@ function toTableRecords (environments) {
             }, {
               label: 'No',
               value: 'false'
-            } ]
-          }, AJS.gadget.fields.nowConfigured() ]
+          } ]}, {
+            id: 'my-callback-field',
+            label: gadget.getMsg('gadget.common.builder.label'),
+            description: gadget.getMsg('gadget.common.builder.description'),
+            type: 'callbackBuilder',
+            userpref: 'myCallback',
+            callback: function (parentDiv) {
+              parentDiv.append((applicationPicker(parentDiv)))
+            }
+          },
+            AJS.gadget.fields.nowConfigured() ]
         }
       }
     },
@@ -57,7 +66,14 @@ function toTableRecords (environments) {
       template: function (args) {
         console.log('Arguments:', args)
 
-        var gadget = this
+        let gadget = this
+
+        console.log('Gadget obj:', gadget)
+        console.log('getGadget:', gadget.getGadget())
+        console.log('getView:', gadget.getView())
+        console.log('getPrefs array:', gadget.getPrefs().getArray())
+
+        gadgets.window.setTitle('Environments')
 
         let output = `<table id="apwide-gadget-table" class="apwide-table">
                         <thead>
@@ -72,7 +88,7 @@ function toTableRecords (environments) {
 
         gadget.getView().html(output)
 
-        AJS.$.dynatableSetup({
+        let table = AJS.$('#apwide-gadget-table').dynatable({
           features: {
             paginate: true,
             sort: true,
@@ -80,10 +96,7 @@ function toTableRecords (environments) {
             search: false,
             recordCount: true,
             perPageSelect: false
-          }
-        })
-
-        let table = AJS.$('#apwide-gadget-table').dynatable({
+          },
           dataset: {
             records: toTableRecords(args.environments)
           }
@@ -93,9 +106,8 @@ function toTableRecords (environments) {
           console.log('After update fired')
           gadget.resize()
         })
-
       },
-      args: [ {
+       args: [ {
         key: 'environments',
         ajaxOptions: function () {
           return {

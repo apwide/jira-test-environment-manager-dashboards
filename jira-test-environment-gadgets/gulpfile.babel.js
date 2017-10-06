@@ -41,10 +41,11 @@ function processJs (watching = false) {
 }
 
 function atlasPackage (watching) {
-  console.log('atlas-package launched...')
-  if (watching) {
+  if (1>1) { // test
+    console.log('atlas-package launched...')
     return exec('atlas-package')
   }else {
+    // necessary to return
     return exec('ls -all')
   }
 }

@@ -17,11 +17,13 @@
 	<!-- Webresources for Environments Gadget -->
 	<web-resource key="apwide-env-gadget-environments-resources" name="apwide-env-gadget-environments-resources">
 		<dependency>com.atlassian.auiplugin:ajs</dependency>
+    <dependency>com.atlassian.auiplugin:aui-select2</dependency>
 		<resource type="download" name="images/" location="gadget/environments/images" />
 		<resource type="download" name="gadget.js" location="gadget/environments/gadget.js" />
     <resource type="download" name="gadget.css" location="gadget/environments/gadget.css" />
     <resource type="download" name="dynatable.css" location="vendor/jquery.dynatable.css" />
     <resource type="download" name="dynatable.js" location="vendor/jquery.dynatable.js" />
+    <resource type="download" name="application-picker.js" location="gadget/component/application-picker.js" />
 		<context>apwide-env-gadget-environments</context>
 	</web-resource>
 
