@@ -1,7 +1,19 @@
 function toTableRecord (environment) {
+  let status = environment.status
+  let statusName = ''
+  if (status)
+    statusName = status.name
+
+  let deployment = environment.deployment
+  let deployedVersion = ''
+  if (deployment)
+    deployedVersion = deployment.versionName
+
   let record = {
     application: environment.application.name,
-    category: environment.category.name
+    category: environment.category.name,
+    status: statusName,
+    deployedVersion: deployedVersion
   }
   return record
 }
@@ -34,7 +46,7 @@ function toTableRecords (environments) {
               label: 'No',
               value: 'false'
             } ]
-          }, AJS.gadget.fields.nowConfigured() ] 
+          }, AJS.gadget.fields.nowConfigured() ]
         }
       }
     },
@@ -46,10 +58,12 @@ function toTableRecords (environments) {
 
         var gadget = this
 
-        let output = `<table id="my-final-table" class="table table-bordered">
+        let output = `<table id="apwide-gadget-table" class="apwide-table">
                         <thead>
                           <th>Application</th>
                           <th>Category</th>
+                          <th>Status</th>
+                          <th>Deployed Version</th>
                         </thead>
                         <tbody>
                         </tbody>
@@ -57,17 +71,34 @@ function toTableRecords (environments) {
 
         gadget.getView().html(output)
 
-        AJS.$('#my-final-table').dynatable({
+        AJS.$.dynatableSetup({
+          features: {
+            paginate: true,
+            sort: true,
+            pushState: true,
+            search: false,
+            recordCount: true,
+            perPageSelect: false
+          }
+        })
+
+        let table = AJS.$('#apwide-gadget-table').dynatable({
           dataset: {
             records: toTableRecords(args.environments)
           }
         })
+
+        table.bind('dynatable:afterUpdate', function (e, dynatable) {
+          console.log('After update fired')
+          gadget.resize()
+        })
+
       },
       args: [ {
         key: 'environments',
         ajaxOptions: function () {
           return {
-            url: '/rest/holydev/1.0/environments'
+            url: '/rest/apwide/tem/1.1/environments'
           }
         }
       } ]

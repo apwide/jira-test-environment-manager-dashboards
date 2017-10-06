@@ -24,7 +24,7 @@
 	<UserPref name="displayName" datatype="hidden" default_value="true" />
 	<Content type="html" view="profile">
         <![CDATA[
-        #requireResource("com.atlassian.jira.gadgets:common")
+				#requireResource("com.atlassian.jira.gadgets:common")
         #requireResource("com.apwide.test-environment-gadgets:apwide-env-gadget-environments-resources")
        	<script type="text/javascript">
 					var ATLASSIAN_BASE_URL =  "__ATLASSIAN_BASE_URL__"
