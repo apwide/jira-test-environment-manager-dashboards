@@ -23,18 +23,23 @@
 		<plugins>
 			<plugin>
 				<groupId>com.atlassian.maven.plugins</groupId>
-				<artifactId>maven-refapp-plugin</artifactId>
+				<artifactId>maven-jira-plugin</artifactId>
 				<version>${amps.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<productVersion>${refapp.version}</productVersion>
 					<quickReloadVersion>2.0.0</quickReloadVersion>
 					<enableQuickReload>true</enableQuickReload>
 					<enableFastdev>false</enableFastdev>
-					<instructions>
-						<Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
-						<Spring-Context>*</Spring-Context>
-					</instructions>
+					<productVersion>${jira.version}</productVersion>
+					<productDataVersion>${jira.version}</productDataVersion>
+					<productDataPath>${basedir}/src/test/resources/generated-test-resources.zip</productDataPath>
+					<!-- <log4jProperties>src/test/resources/log4j.properties</log4jProperties> -->
+					<jvmArgs>-Datlassian.mail.senddisabled=false -Xmx1000m
+						-Datlassian.disable.issue.collector=true
+						-Dorg.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=true
+						-Djira.downgrade.allowed=true
+						-Datlassian.plugins.startup.options="--disable-addons=com.atlassian.labs.hipchat.hipchat-for-jira-plugin:com.atlassian.jira.plugins.jira-healthcheck-plugin:com.atlassian.feedback.jira-feedback-plugin:com.pyxis.greenhopper.jira:com.atlassian.jirafisheyeplugin"
+					</jvmArgs>
 					<compressResources>false</compressResources>
 					<systemPropertyVariables>
 						<!-- We need to tell AMPS to stop looking at our source now, otherwise 
