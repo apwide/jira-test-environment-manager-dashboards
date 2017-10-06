@@ -1,32 +1,31 @@
-function applicationPicker (parentDiv) {
+function applicationPicker (gadget, parentDiv, applications, name) {
+
+  const SEPARATOR = "::"
+  let currentStringValue = gadget.getPref(name)
+  let currentValues = currentStringValue.split(SEPARATOR)
+  let options = getOptions(applications, currentValues)
+
   parentDiv.append(
     `<form class="aui">
-        <select id="select2-example" multiple="">
-            ${getOptions()}
+        <select id="select2-${name}" multiple="">
+            ${options}
         </select>
-    </form>`
+    </form>
+    <input type="hidden" id="${name}" name="${name}" value="${currentStringValue}"/>`
   )
-  AJS.$('#select2-example').auiSelect2()
+  AJS.$('#select2-' + name).auiSelect2().on('change', function (e) {
+    let values = e.val
+    let stringValue = values.join(SEPARATOR)
+    AJS.$('#' + name).val(stringValue)
+    gadget.resize()
+  })
 }
 
-function getOptions () {
-  let applications = getApplications()
+function getOptions (applications, currentValues) {
   let options = ''
   for (let application of applications) {
-    options += `<option value="${application.id}">${application.name}</option>`
+    let selected = currentValues.includes(''+application.id) ? 'selected' : ''
+    options += `<option value="${application.id}" ${selected}>${application.name}</option>`
   }
   return options
-}
-
-function getApplications () {
-  // var applications
-  // AJS.$.ajax({
-  //   url: AJS.contextPath() + 'tem/V1.1/applications',
-  //   async: false,
-  //   contentType: 'application/json',
-  //   success: function (data) {
-  //     applications = data
-  //   }
-  // })
-  return [{name: 'eCommerce', id: 1}, {name: 'ERP', id: 2}]
 }

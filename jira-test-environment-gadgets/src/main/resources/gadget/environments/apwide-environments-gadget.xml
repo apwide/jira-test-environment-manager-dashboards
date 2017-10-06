@@ -22,7 +22,7 @@
 	</ModulePrefs>
 	<UserPref name="isConfigured" datatype="hidden" default_value="false" />
 	<UserPref name="refresh" datatype="hidden" default_value="false" />
-	<UserPref name="displayName" datatype="hidden" default_value="true" />
+	<UserPref name="applicationFilter" datatype="hidden" default_value="" />
 	<Content type="html" view="profile">
         <![CDATA[
 				#requireResource("com.atlassian.jira.gadgets:common")

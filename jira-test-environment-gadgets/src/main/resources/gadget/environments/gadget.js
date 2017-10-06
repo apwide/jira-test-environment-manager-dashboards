@@ -31,29 +31,27 @@ function toTableRecords (environments) {
     baseUrl: ATLASSIAN_BASE_URL,
     useOauth: '/rest/gadget/1.0/currentUser',
     config: {
+      args: [
+        {
+          key: 'applications',
+          ajaxOptions: function () {
+            return {
+              url: '/rest/apwide/tem/1.1/applications'
+            }
+          }
+        }
+      ],
       descriptor: function (args) {
         var gadget = this
         return {
-          fields: [ {
-            userpref: 'displayName',
-            label: gadget.getMsg('property.label'),
-            description: gadget.getMsg('property.description'),
-            type: 'multiselect',
-            selected: gadget.getPref('displayName'),
-            options: [ {
-              label: 'Yes',
-              value: 'true'
-            }, {
-              label: 'No',
-              value: 'false'
-          } ]}, {
-            id: 'my-callback-field',
-            label: gadget.getMsg('gadget.common.builder.label'),
-            description: gadget.getMsg('gadget.common.builder.description'),
+          fields: [{
+            id: 'application-picker',
+            label: gadget.getMsg('gadget.environments.application-picker'),
+            description: gadget.getMsg('gadget.environments.application-picker.description'),
             type: 'callbackBuilder',
-            userpref: 'myCallback',
+            userpref: 'applicationFilter',
             callback: function (parentDiv) {
-              parentDiv.append((applicationPicker(parentDiv)))
+              parentDiv.append((applicationPicker(gadget, parentDiv, args.applications, 'applicationFilter')))
             }
           },
             AJS.gadget.fields.nowConfigured() ]
@@ -64,17 +62,8 @@ function toTableRecords (environments) {
       enableReload: true,
       onResizeAdjustHeight: true,
       template: function (args) {
-        console.log('Arguments:', args)
-
         let gadget = this
-
-        console.log('Gadget obj:', gadget)
-        console.log('getGadget:', gadget.getGadget())
-        console.log('getView:', gadget.getView())
-        console.log('getPrefs array:', gadget.getPrefs().getArray())
-
         gadgets.window.setTitle('Environments')
-
         let output = `<table id="apwide-gadget-table" class="apwide-table">
                         <thead>
                           <th>Application</th>
@@ -103,18 +92,18 @@ function toTableRecords (environments) {
         })
 
         table.bind('dynatable:afterUpdate', function (e, dynatable) {
-          console.log('After update fired')
           gadget.resize()
         })
       },
-       args: [ {
+      args: [ {
         key: 'environments',
         ajaxOptions: function () {
           return {
             url: '/rest/apwide/tem/1.1/environments'
           }
         }
-      } ]
+      }
+      ]
     }
   })
 })()
