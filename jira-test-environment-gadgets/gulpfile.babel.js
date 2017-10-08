@@ -10,7 +10,7 @@ const exec = require('gulp-exec')
 
 const MVN_OUTPUT_DIR = path.join('target', 'classes')
 const FRONTEND_SRC_DIR = path.join('src', 'main', 'resources')
-const jsFiles = [path.join(FRONTEND_SRC_DIR, '**', '*.js'), path.join('!' + FRONTEND_SRC_DIR, 'vendor', '**', '*.js')]
+const jsFiles = [path.join(FRONTEND_SRC_DIR, '**', '*.js'), path.join('!' + FRONTEND_SRC_DIR, 'apwide','env','gadget','vendor', '**', '*.js')]
 
 //
 // Define low-level, compose-able sub-steps for our gulp tasks
