@@ -3,8 +3,8 @@
 	<ModulePrefs title="__MSG_gadget.environments.title__"
 		description="__MSG_gadget.environments.description__"
 		author="Apwide" author_email="support@apwide.com"
-		screenshot='#staticResourceUrl("com.apwide.test-environment-gadgets:apwide-env-gadget-environments-resources", "images/screenshot.png")'
-		thumbnail='#staticResourceUrl("com.apwide.test-environment-gadgets:apwide-env-gadget-environments-resources", "images/thumbnail.png")'
+		screenshot='#staticResourceUrl("com.apwide.test-environment-gadgets:apwide-env-gadget-environments-resources", "images/environments-gadget-screenshot.png")'
+		thumbnail='#staticResourceUrl("com.apwide.test-environment-gadgets:apwide-env-gadget-environments-resources", "images/environments-gadget-thumbnail.png")'
 		height="150">
 		<Optional feature="gadget-directory">
 			<Param name="categories">
