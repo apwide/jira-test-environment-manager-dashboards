@@ -23,7 +23,7 @@
     <resource type="download" name="gadget.css" location="apwide/env/gadget/environments/environments-gadget.css" />
     <resource type="download" name="dynatable.css" location="apwide/env/gadget/vendor/jquery.dynatable.css" />
     <resource type="download" name="dynatable.js" location="apwide/env/gadget/vendor/jquery.dynatable.js" />
-    <resource type="download" name="application-picker.js" location="apwide/env/gadget/component/application-picker.js" />
+    <resource type="download" name="application-picker.js" location="apwide/env/gadget/component/select2-picker.js" />
     <resource type="download" name="environments-searcher.js" location="apwide/env/gadget/common/environments-searcher.js" />
 		<context>apwide-env-gadget-environments</context>
 	</web-resource>

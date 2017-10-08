@@ -51,7 +51,7 @@ function toTableRecords (environments) {
             type: 'callbackBuilder',
             userpref: 'applicationFilter',
             callback: function (parentDiv) {
-              parentDiv.append((applicationPicker(gadget, parentDiv, args.applications, 'applicationFilter')))
+              parentDiv.append((select2ValuePicker(gadget, parentDiv, args.applications, 'applicationFilter')))
             }
           },
             AJS.gadget.fields.nowConfigured() ]
@@ -98,8 +98,15 @@ function toTableRecords (environments) {
       args: [ {
         key: 'environments',
         ajaxOptions: function () {
+          let gadget = this
+          let applicationFilter = gadgets.util.unescapeString(this.getPref('applicationFilter'))
+          let applicationIds = stringToArray(applicationFilter)
+
           return {
-            url: searchEnvironmentsUrl()
+            url: searchEnvironmentsUrl(),
+            data: {
+              application: "eCommerce"
+            }
           }
         }
       }
