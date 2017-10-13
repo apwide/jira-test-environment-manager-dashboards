@@ -38,6 +38,22 @@ function toTableRecords (environments, customProperties) {
               url: '/rest/apwide/tem/1.1/applications'
             }
           }
+        },
+        {
+          key: 'categories',
+          ajaxOptions: function () {
+            return {
+              url: '/rest/apwide/tem/1.1/categories'
+            }
+          }
+        },
+        {
+          key: 'statuses',
+          ajaxOptions: function () {
+            return {
+              url: '/rest/apwide/tem/1.1/statuses'
+            }
+          }
         }
       ],
       descriptor: function (args) {
@@ -51,6 +67,26 @@ function toTableRecords (environments, customProperties) {
             userpref: 'applicationFilter',
             callback: function (parentDiv) {
               parentDiv.append((select2ValuePicker(gadget, parentDiv, args.applications, 'applicationFilter')))
+            }
+          },
+          {
+            id: 'category-picker',
+            label: gadget.getMsg('gadget.environments.category-picker'),
+            description: gadget.getMsg('gadget.environments.category-picker.description'),
+            type: 'callbackBuilder',
+            userpref: 'categoryFilter',
+            callback: function (parentDiv) {
+              parentDiv.append((select2ValuePicker(gadget, parentDiv, args.categories, 'categoryFilter')))
+            }
+          },
+          {
+            id: 'statuses-picker',
+            label: gadget.getMsg('gadget.environments.status-picker'),
+            description: gadget.getMsg('gadget.environments.status-picker.description'),
+            type: 'callbackBuilder',
+            userpref: 'statusFilter',
+            callback: function (parentDiv) {
+              parentDiv.append((select2ValuePicker(gadget, parentDiv, args.statuses, 'statusFilter')))
             }
           },
             AJS.gadget.fields.nowConfigured() ]
@@ -108,11 +144,21 @@ function toTableRecords (environments, customProperties) {
           let gadget = this
           let searchFilter = {}
 
-          let applicationFilter = gadgets.util.unescapeString(this.getPref('applicationFilter'))
-          let applicationIds = stringToArray(applicationFilter)
-          if (applicationIds && applicationIds.length > 0) {
-            searchFilter.applicationId = applicationIds
+          function getArrValue(prefName){
+            let prefValue = gadgets.util.unescapeString(gadget.getPref(prefName))
+            let prefArrValue = stringToArray(prefValue)
+            return prefArrValue
           }
+
+          function addFilter(searchFilter, filterName, arrValue){
+              if (arrValue && arrValue.length > 0){
+                searchFilter[filterName] = arrValue
+              }
+          }
+
+          addFilter(searchFilter, 'applicationId', getArrValue('applicationFilter'))
+          addFilter(searchFilter, 'categoryId', getArrValue('categoryFilter'))
+          addFilter(searchFilter, 'statusId', getArrValue('statusFilter'))
 
           return {
             url: searchEnvironmentsUrl(searchFilter)

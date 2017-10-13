@@ -2,4 +2,6 @@
 	<msg name="gadget.environments.title">Apwide Environments</msg>
 	<msg name="gadget.environments.description">Display Apwide environments information</msg>
 	<msg name="gadget.environments.application-picker">Applications:</msg>
+	<msg name="gadget.environments.category-picker">Categories:</msg>
+	<msg name="gadget.environments.status-picker">Statuses:</msg>
 </messagebundle>
