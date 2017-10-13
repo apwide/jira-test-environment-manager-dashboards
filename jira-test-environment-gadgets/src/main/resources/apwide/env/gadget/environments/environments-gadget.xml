@@ -20,12 +20,13 @@
 		<Locale
 			messages="__ATLASSIAN_BASE_URL__/download/resources/com.apwide.test-environment-gadgets/apwide-environments-gadget-messages.xml" />
 	</ModulePrefs>
+	<UserPref name="subtitle" datatype="hidden" default_value="" />
 	<UserPref name="isConfigured" datatype="hidden" default_value="false" />
 	<UserPref name="refresh" datatype="hidden" default_value="false" />
-	<UserPref name="applicationFilter" datatype="hidden" default_value="" />
-	<UserPref name="categoryFilter" datatype="hidden" default_value="" />
-	<UserPref name="statusFilter" datatype="hidden" default_value="" />
-	<UserPref name="shownColumns" datatype="hidden" default_value="" />
+	<UserPref name="application-filter" datatype="hidden" default_value="" />
+	<UserPref name="category-filter" datatype="hidden" default_value="" />
+	<UserPref name="status-filter" datatype="hidden" default_value="" />
+	<UserPref name="shown-columns" datatype="hidden" default_value="" />
 	<Content type="html" view="profile">
         <![CDATA[
 				#requireResource("com.atlassian.jira.gadgets:common")

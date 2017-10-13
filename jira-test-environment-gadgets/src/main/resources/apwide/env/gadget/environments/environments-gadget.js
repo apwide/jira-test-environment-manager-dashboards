@@ -103,44 +103,49 @@ function toTableRecords (environments, customProperties) {
         }
 
         return {
-          fields: [{
-            id: 'application-picker',
-            label: gadget.getMsg('gadget.environments.application-picker'),
-            description: gadget.getMsg('gadget.environments.application-picker.description'),
-            type: 'callbackBuilder',
-            userpref: 'applicationFilter',
-            callback: function (parentDiv) {
-              parentDiv.append((select2ValuePicker(gadget, parentDiv, args.applications, 'applicationFilter')))
-            }
-          },
+          fields: [
+            {
+              id: 'subtitle-input',
+              userpref: 'subtitle',
+              label: gadget.getMsg('gadget.environments.subtitle'),
+              description: gadget.getMsg('gadget.environments.subtitle.description'),
+              type: 'text',
+              value: gadget.getPref('subtitle')
+            },
+            {
+              id: 'application-picker',
+              label: gadget.getMsg('gadget.environments.application-filter'),
+              type: 'callbackBuilder',
+              userpref: 'application-filter',
+              callback: function (parentDiv) {
+                parentDiv.append((select2ValuePicker(gadget, parentDiv, args.applications, 'application-filter')))
+              }
+            },
             {
               id: 'category-picker',
-              label: gadget.getMsg('gadget.environments.category-picker'),
-              description: gadget.getMsg('gadget.environments.category-picker.description'),
+              label: gadget.getMsg('gadget.environments.category-filter'),
               type: 'callbackBuilder',
-              userpref: 'categoryFilter',
+              userpref: 'category-filter',
               callback: function (parentDiv) {
-                parentDiv.append((select2ValuePicker(gadget, parentDiv, args.categories, 'categoryFilter')))
+                parentDiv.append((select2ValuePicker(gadget, parentDiv, args.categories, 'category-filter')))
               }
             },
             {
-              id: 'statuses-picker',
-              label: gadget.getMsg('gadget.environments.status-picker'),
-              description: gadget.getMsg('gadget.environments.status-picker.description'),
+              id: 'status-picker',
+              label: gadget.getMsg('gadget.environments.status-filter'),
               type: 'callbackBuilder',
-              userpref: 'statusFilter',
+              userpref: 'status-filter',
               callback: function (parentDiv) {
-                parentDiv.append((select2ValuePicker(gadget, parentDiv, args.statuses, 'statusFilter')))
+                parentDiv.append((select2ValuePicker(gadget, parentDiv, args.statuses, 'status-filter')))
               }
             },
             {
-              id: 'shown-columns',
+              id: 'shown-columns-picker',
               label: gadget.getMsg('gadget.environments.shown-columns'),
-              description: gadget.getMsg('gadget.environments.shown-columns.description'),
               type: 'callbackBuilder',
-              userpref: 'shownColumns',
+              userpref: 'shown-columns',
               callback: function (parentDiv) {
-                parentDiv.append((select2ValuePicker(gadget, parentDiv, allColumns, 'shownColumns', allColumnIds)))
+                parentDiv.append((select2ValuePicker(gadget, parentDiv, allColumns, 'shown-columns', allColumnIds)))
               }
             },
             AJS.gadget.fields.nowConfigured() ]
@@ -152,11 +157,12 @@ function toTableRecords (environments, customProperties) {
       onResizeAdjustHeight: true,
       template: function (args) {
         let gadget = this
-        gadgets.window.setTitle('Environments')
 
-        let shownColumnStringValue = gadgets.util.unescapeString(gadget.getPref('shownColumns'))
+        let shownColumnStringValue = gadgets.util.unescapeString(gadget.getPref('shown-columns'))
         let shownColumnIds = stringToArray(shownColumnStringValue)
         let allColumns = getAllColumns(args.customProperties)
+
+        gadgets.window.setTitle(`Apwide Environments: ${gadget.getPref('subtitle')}`)
 
         function columnHeader (column) {
           return `<th data-dynatable-column="${column.id}">${column.name}</th>`
@@ -218,7 +224,6 @@ function toTableRecords (environments, customProperties) {
           function getArrValue (prefName) {
             let prefValue = gadgets.util.unescapeString(gadget.getPref(prefName))
             let prefArrValue = stringToArray(prefValue)
-            console.log('Array value:', prefArrValue)
             return prefArrValue
           }
 
@@ -228,9 +233,9 @@ function toTableRecords (environments, customProperties) {
             }
           }
 
-          addFilter(searchFilter, 'applicationId', getArrValue('applicationFilter'))
-          addFilter(searchFilter, 'categoryId', getArrValue('categoryFilter'))
-          addFilter(searchFilter, 'statusId', getArrValue('statusFilter'))
+          addFilter(searchFilter, 'applicationId', getArrValue('application-filter'))
+          addFilter(searchFilter, 'categoryId', getArrValue('category-filter'))
+          addFilter(searchFilter, 'statusId', getArrValue('status-filter'))
 
           return {
             url: searchEnvironmentsUrl(searchFilter)

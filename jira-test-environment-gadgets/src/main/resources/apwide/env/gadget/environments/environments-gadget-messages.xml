@@ -1,8 +1,38 @@
 <messagebundle>
-	<msg name="gadget.environments.title">Apwide Environments</msg>
-	<msg name="gadget.environments.description">Display Apwide environments information</msg>
-	<msg name="gadget.environments.application-picker">Applications:</msg>
-	<msg name="gadget.environments.category-picker">Categories:</msg>
-	<msg name="gadget.environments.status-picker">Statuses:</msg>
-	<msg name="gadget.environments.shown-columns">Displayed Columns:</msg>
+  <msg name='gadget.environments.title'>
+    Apwide Environments
+  </msg>
+  <msg name='gadget.environments.description'>
+    Display Apwide environments information
+  </msg>
+  <msg name='gadget.environments.application-filter'>
+    Applications:
+  </msg>
+	<msg name='gadget.environments.application-filter.description'>
+		Filter the displayed environments by applications
+	</msg>
+  <msg name='gadget.environments.category-filter'>
+    Categories:
+  </msg>
+	<msg name='gadget.environments.category-filter.description'>
+		Filter the displayed environments by categories
+	</msg>
+  <msg name='gadget.environments.status-filter'>
+    Statuses:
+  </msg>
+	<msg name='gadget.environments.status-filter.description'>
+		Filter the displayed environments by statuses
+	</msg>
+  <msg name='gadget.environments.shown-columns'>
+    Columns:
+  </msg>
+	<msg name='gadget.environments.shown-columns.description'>
+		Choose which columns should be displayed
+	</msg>
+  <msg name='gadget.environments.subtitle'>
+    Title:
+  </msg>
+  <msg name='gadget.environments.subtitle.description'>
+    Describe the content of this gadget
+  </msg>
 </messagebundle>
