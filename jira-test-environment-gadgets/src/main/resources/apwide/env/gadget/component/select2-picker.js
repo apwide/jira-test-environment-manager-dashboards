@@ -1,7 +1,14 @@
-
-function select2ValuePicker (gadget, parentDiv, allValues, name) {
+function select2ValuePicker (gadget, parentDiv, allValues, name, defaultValues) {
   let currentStringValue = gadgets.util.unescapeString(gadget.getPref(name))
   let currentValues = stringToArray(currentStringValue)
+
+  if (currentValues.length <= 0 && defaultValues && defaultValues.length > 0) {
+    currentValues = defaultValues
+    currentStringValue = arrayToString(defaultValues)
+    console.log("Current values:", currentValues)
+    console.log("Current string values", currentStringValue)
+  }
+
   let options = getOptions(allValues, currentValues)
 
   parentDiv.append(
@@ -33,7 +40,7 @@ function getOptions (allValues, currentValues) {
 function stringToArray (stringValues) {
   if (stringValues) {
     console.log('String values:', stringValues)
-    return JSON.parse(stringValues)
+    return stringValues.split(',')
   }else {
     return []
   }
@@ -41,8 +48,8 @@ function stringToArray (stringValues) {
 
 function arrayToString (arrValues) {
   if (arrValues) {
-    return JSON.stringify(arrValues)
+    return arrValues.join(',')
   }else {
-    return '[]'
+    return ''
   }
 }

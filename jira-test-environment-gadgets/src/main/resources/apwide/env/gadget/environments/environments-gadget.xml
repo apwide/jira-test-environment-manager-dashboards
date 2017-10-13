@@ -25,6 +25,7 @@
 	<UserPref name="applicationFilter" datatype="hidden" default_value="" />
 	<UserPref name="categoryFilter" datatype="hidden" default_value="" />
 	<UserPref name="statusFilter" datatype="hidden" default_value="" />
+	<UserPref name="shownColumns" datatype="hidden" default_value="" />
 	<Content type="html" view="profile">
         <![CDATA[
 				#requireResource("com.atlassian.jira.gadgets:common")
