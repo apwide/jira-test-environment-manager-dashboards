@@ -1,7 +1,6 @@
-const VALUE_SEPARATOR = '::'
 
 function select2ValuePicker (gadget, parentDiv, allValues, name) {
-  let currentStringValue = gadget.getPref(name)
+  let currentStringValue = gadgets.util.unescapeString(gadget.getPref(name))
   let currentValues = stringToArray(currentStringValue)
   let options = getOptions(allValues, currentValues)
 
@@ -31,20 +30,19 @@ function getOptions (allValues, currentValues) {
   return options
 }
 
-function stringToArray(stringValues){
-  if (stringValues){
-    return stringValues.split(VALUE_SEPARATOR)
+function stringToArray (stringValues) {
+  if (stringValues) {
+    console.log('String values:', stringValues)
+    return JSON.parse(stringValues)
+  }else {
+    return []
   }
-    else{
-      return []
-    }
 }
 
-function arrayToString(arrValues){
-  if (arrValues){
-    return arrValues.join(VALUE_SEPARATOR)
+function arrayToString (arrValues) {
+  if (arrValues) {
+    return JSON.stringify(arrValues)
+  }else {
+    return '[]'
   }
-    else{
-      return ''
-    }
 }

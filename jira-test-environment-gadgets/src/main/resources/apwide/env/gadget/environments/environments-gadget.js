@@ -147,6 +147,7 @@ function toTableRecords (environments, customProperties) {
           function getArrValue(prefName){
             let prefValue = gadgets.util.unescapeString(gadget.getPref(prefName))
             let prefArrValue = stringToArray(prefValue)
+            console.log("Array value:", prefArrValue)
             return prefArrValue
           }
 
