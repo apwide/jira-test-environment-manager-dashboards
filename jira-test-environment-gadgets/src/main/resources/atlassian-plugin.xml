@@ -25,6 +25,9 @@
     <resource type="download" name="dynatable.js" location="apwide/env/gadget/vendor/jquery.dynatable.js" />
     <resource type="download" name="application-picker.js" location="apwide/env/gadget/component/select2-picker.js" />
     <resource type="download" name="environments-searcher.js" location="apwide/env/gadget/common/environments-searcher.js" />
+    <resource type="download" name="status-renderer.js" location="apwide/env/gadget/component/environment/status-renderer.js" />
+    <resource type="download" name="url-renderer.js" location="apwide/env/gadget/component/environment/url-renderer.js" />
+    <resource type="download" name="custom-property-renderer.js" location="apwide/env/gadget/component/environment/custom-property-renderer.js" />
 		<context>apwide-env-gadget-environments</context>
 	</web-resource>
 	<resource type="download" name="apwide-environments-gadget-messages.xml"

@@ -1,18 +1,18 @@
 function toTableRecord (environment) {
-  let status = environment.status
-  let statusName = ''
-  if (status)
-    statusName = status.name
 
   let deployment = environment.deployment
   let deployedVersion = ''
   if (deployment)
     deployedVersion = deployment.versionName
 
+  let customProperty1 = getCustomProperty(environment,1)
+
   let record = {
     application: environment.application.name,
     category: environment.category.name,
-    status: statusName,
+    url: renderUrl(environment),
+    status: renderStatus(environment),
+    customProperty1: customProperty1.value,
     deployedVersion: deployedVersion
   }
   return record
@@ -64,11 +64,14 @@ function toTableRecords (environments) {
       template: function (args) {
         let gadget = this
         gadgets.window.setTitle('Environments')
+
         let output = `<table id="apwide-gadget-table" class="apwide-table">
                         <thead>
                           <th>Application</th>
                           <th>Category</th>
+                          <th>Url</th>
                           <th>Status</th>
+                          <th data-dynatable-column="customProperty1">Custom Property 1</th>
                           <th>Deployed Version</th>
                         </thead>
                         <tbody>
@@ -99,14 +102,16 @@ function toTableRecords (environments) {
         key: 'environments',
         ajaxOptions: function () {
           let gadget = this
+          let searchFilter = {}
+
           let applicationFilter = gadgets.util.unescapeString(this.getPref('applicationFilter'))
           let applicationIds = stringToArray(applicationFilter)
+          if (applicationIds && applicationIds.length > 0) {
+            searchFilter.applicationId = applicationIds
+          }
 
           return {
-            url: searchEnvironmentsUrl(),
-            data: {
-              application: "eCommerce"
-            }
+            url: searchEnvironmentsUrl(searchFilter)
           }
         }
       }
