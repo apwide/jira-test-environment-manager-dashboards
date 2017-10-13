@@ -5,16 +5,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.apwide</groupId>
-	<artifactId>test-environment-gadgets</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<artifactId>test-environment-dashboard</artifactId>
+	<version>1.0.0</version>
 
 	<organization>
 		<name>Apwide</name>
 		<url>https://apwide.com</url>
 	</organization>
 
-	<name>Apwide Test Environments Gadgets</name>
-	<description>This is an Apwide app providing gadgets to display test environments information in Atlassian apps</description>
+	<name>Apwide Environments Dashboard</name>
+	<description>This is an Apwide app providing gadgets to create environments dashboard in Atlassian apps</description>
 	<packaging>atlassian-plugin</packaging>
 
 	<dependencies>
