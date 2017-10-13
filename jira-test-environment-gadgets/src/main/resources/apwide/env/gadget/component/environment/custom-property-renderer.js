@@ -1,16 +1,23 @@
-function getCustomProperty (environment, propertyId) {
+function renderCustomProperty (environment, propertyId) {
   if (environment) {
     let customProperties = environment.customProperties
 
     for (let customProperty of customProperties)
       if (customProperty.id === propertyId) {
         let value = customProperty.valueHtml
-        return {
-          name: customProperty.name,
-          value: value?value:''
-        }
+        return value ? value : ''
     }
   }
+  return ''
+}
 
-  return
+function getCustomProperty (customProperties, propertyId) {
+  for (let customProperty of customProperties)
+    if (customProperty.id === propertyId) {
+      return customProperty
+  }
+}
+
+function getCustomPropertiesUrl () {
+  return '/rest/apwide/tem/1.1/custom-properties?activeOnly=true'
 }

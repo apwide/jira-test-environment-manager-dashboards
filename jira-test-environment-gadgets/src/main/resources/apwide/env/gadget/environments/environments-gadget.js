@@ -1,27 +1,26 @@
-function toTableRecord (environment) {
-
+function toTableRecord (environment, customProperties) {
   let deployment = environment.deployment
   let deployedVersion = ''
   if (deployment)
     deployedVersion = deployment.versionName
-
-  let customProperty1 = getCustomProperty(environment,1)
 
   let record = {
     application: environment.application.name,
     category: environment.category.name,
     url: renderUrl(environment),
     status: renderStatus(environment),
-    customProperty1: customProperty1.value,
     deployedVersion: deployedVersion
+  }
+  for (let customProperty of customProperties) {
+    record[customProperty.key] = renderCustomProperty(environment, customProperty.id)
   }
   return record
 }
 
-function toTableRecords (environments) {
+function toTableRecords (environments, customProperties) {
   let tableRecords = []
   for (let environment of environments) {
-    tableRecords.push(toTableRecord(environment))
+    tableRecords.push(toTableRecord(environment, customProperties))
   }
   return tableRecords
 }
@@ -65,13 +64,18 @@ function toTableRecords (environments) {
         let gadget = this
         gadgets.window.setTitle('Environments')
 
+        let customPropertiesHeaders = ''
+        for (let customProperty of args.customProperties) {
+          customPropertiesHeaders += `<th data-dynatable-column="${customProperty.key}">${customProperty.name}</th>`
+        }
+
         let output = `<table id="apwide-gadget-table" class="apwide-table">
                         <thead>
                           <th>Application</th>
                           <th>Category</th>
                           <th>Url</th>
                           <th>Status</th>
-                          <th data-dynatable-column="customProperty1">Custom Property 1</th>
+                          ${customPropertiesHeaders}
                           <th>Deployed Version</th>
                         </thead>
                         <tbody>
@@ -90,7 +94,7 @@ function toTableRecords (environments) {
             perPageSelect: false
           },
           dataset: {
-            records: toTableRecords(args.environments)
+            records: toTableRecords(args.environments, args.customProperties)
           }
         })
 
@@ -114,7 +118,14 @@ function toTableRecords (environments) {
             url: searchEnvironmentsUrl(searchFilter)
           }
         }
-      }
+      },
+        {
+          key: 'customProperties',
+          ajaxOptions: function () {
+            return {
+              url: getCustomPropertiesUrl()
+            }}
+        }
       ]
     }
   })
