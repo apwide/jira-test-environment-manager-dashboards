@@ -11,11 +11,14 @@
 				Other
 			</Param>
 		</Optional>
+		<Optional feature="atlassian.util" />
+		<Optional feature='auth-refresh' />
 		<Require feature="oauthpopup" />
 		<Require feature="dynamic-height" />
 		<Require feature="setprefs" />
 		<Require feature="views" />
 		<Require feature="settitle"/>
+		#oauth
 		#supportedLocales("gadget.common")
 		<Locale
 			messages="__ATLASSIAN_BASE_URL__/download/resources/com.apwide.test-environment-dashboard/apwide-environments-gadget-messages.xml" />
@@ -30,6 +33,7 @@
 	<Content type="html" view="profile">
         <![CDATA[
 				#requireResource("com.atlassian.jira.gadgets:common")
+				#requireResource("com.atlassian.gadgets.publisher:ajs-gadgets")
         #requireResource("com.apwide.test-environment-dashboard:apwide-env-gadget-environments-resources")
        	<script type="text/javascript">
 					var ATLASSIAN_BASE_URL =  "__ATLASSIAN_BASE_URL__"
