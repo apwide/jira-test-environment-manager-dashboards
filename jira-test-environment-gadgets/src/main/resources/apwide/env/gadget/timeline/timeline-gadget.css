@@ -1,0 +1,49 @@
+table.apwide-table {
+    width: 100%;
+    margin: 4px 0px 10px 0px;
+}
+
+table.apwide-table thead {
+  border-bottom: 1px solid #ddd;
+}
+
+table.apwide-table thead th a {
+    vertical-align: bottom;
+      color: #707070 !important;
+      font-weight: bold;
+      font-size: 12px;
+      white-space: nowrap;
+}
+
+table.apwide-table thead th a:hover {
+  text-decoration: underline;
+}
+
+table.apwide-table th, table.apwide-table td {
+    padding: 6px 8px 8px 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #ddd;
+    font-family: Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857142857143;
+}
+
+.dynatable-active-page {
+  background: #f5f5f5 !important;
+  font-weight: bold !important;
+}
+.dynatable-active-page:hover {
+  color: #fff;
+}
+
+.dynatable-record-count{
+  color: #707070;
+  padding: 5px 5px !important;
+}
+
+ul.dynatable-pagination-links{
+  margin: 0px;
+  color: #707070;
+}

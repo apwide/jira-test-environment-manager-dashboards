@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-	<ModulePrefs title="__MSG_gadget.environments.title__"
-		description="__MSG_gadget.environments.description__"
+	<ModulePrefs title="__MSG_gadget.timeline.title__"
+		description="__MSG_gadget.timeline.description__"
 		author="Apwide" author_email="support@apwide.com"
-		screenshot='#staticResourceUrl("com.apwide.test-environment-dashboard:apwide-env-gadget-environments-resources", "images/environments-gadget-screenshot.png")'
-		thumbnail='#staticResourceUrl("com.apwide.test-environment-dashboard:apwide-env-gadget-environments-resources", "images/environments-gadget-thumbnail.png")'
+		screenshot='#staticResourceUrl("com.apwide.test-environment-dashboard:apwide-env-gadget-timeline-resources", "images/timeline-gadget-screenshot.png")'
+		thumbnail='#staticResourceUrl("com.apwide.test-environment-dashboard:apwide-env-gadget-timeline-resources", "images/timeline-gadget-thumbnail.png")'
 		height="150">
 		<Optional feature="gadget-directory">
 			<Param name="categories">
@@ -12,7 +12,6 @@
 			</Param>
 		</Optional>
 		<Optional feature="atlassian.util" />
-		<Optional feature='auth-refresh' />
 		<Require feature="oauthpopup" />
 		<Require feature="dynamic-height" />
 		<Require feature="setprefs" />
@@ -21,7 +20,7 @@
 		#oauth
 		#supportedLocales("gadget.common")
 		<Locale
-			messages="__ATLASSIAN_BASE_URL__/download/resources/com.apwide.test-environment-dashboard/apwide-environments-gadget-messages.xml" />
+			messages="__ATLASSIAN_BASE_URL__/download/resources/com.apwide.test-environment-dashboard/apwide-timeline-gadget-messages.xml" />
 	</ModulePrefs>
 	<UserPref name="subtitle" datatype="hidden" default_value="" />
 	<UserPref name="isConfigured" datatype="hidden" default_value="false" />
@@ -34,8 +33,8 @@
         <![CDATA[
 				#requireResource("com.atlassian.jira.gadgets:common")
 				#requireResource("com.atlassian.gadgets.publisher:ajs-gadgets")
-				#requireResource("com.apwide.test-environment-dashboard:apwide-env-gadget-common-resources")
-        #requireResource("com.apwide.test-environment-dashboard:apwide-env-gadget-environments-resources")
+        #requireResource("com.apwide.test-environment-dashboard:apwide-env-gadget-common-resources")
+        #requireResource("com.apwide.test-environment-dashboard:apwide-env-gadget-timeline-resources")
        	<script type="text/javascript">
 					var ATLASSIAN_BASE_URL =  "__ATLASSIAN_BASE_URL__"
     		</script>

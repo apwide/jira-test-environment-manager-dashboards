@@ -7,14 +7,27 @@
         <param name="plugin-logo">apwide/env/gadget/images/apwide-environments-gadget-logo.png</param>
     </plugin-info>
 
-    <!-- GADGETS -->
+  <!-- Common resources -->
+  <web-resource key="apwide-env-gadget-common-resources" name="apwide-env-gadget-common-resources">
+    <resource type="download" name="select2-picker.js" location="apwide/env/gadget/component/select2-picker.js" />
+    <resource type="download" name="environments-searcher.js" location="apwide/env/gadget/common/environments-searcher.js" />
+    <resource type="download" name="status-renderer.js" location="apwide/env/gadget/component/environment/status-renderer.js" />
+    <resource type="download" name="url-renderer.js" location="apwide/env/gadget/component/environment/url-renderer.js" />
+    <resource type="download" name="custom-property-renderer.js" location="apwide/env/gadget/component/environment/custom-property-renderer.js" />
+    <resource type="download" name="version-status-renderer.js" location="apwide/env/gadget/component/environment/version-status-renderer.js" />
+    <resource type="download" name="name-renderer.js" location="apwide/env/gadget/component/environment/name-renderer.js" />
+    <dependency>com.holydev.env.plugin.jira-holydev-env-plugin:common-resources</dependency>
+	</web-resource>
 
+
+  <!-- GADGETS -->
+
+  <!-- Environments Gadget -->
 	<gadget key="apwide-env-gadget-environments" name="Apwide Environments Gadget"
 		location="apwide/env/gadget/environments/environments-gadget.xml">
 		<description>Displays Apwide's apps environment's data</description>
 	</gadget>
 
-	<!-- Webresources for Environments Gadget -->
 	<web-resource key="apwide-env-gadget-environments-resources" name="apwide-env-gadget-environments-resources">
 		<dependency>com.atlassian.auiplugin:ajs</dependency>
     <dependency>com.atlassian.auiplugin:aui-select2</dependency>
@@ -23,17 +36,32 @@
     <resource type="download" name="gadget.css" location="apwide/env/gadget/environments/environments-gadget.css" />
     <resource type="download" name="dynatable.css" location="apwide/env/gadget/vendor/jquery.dynatable.css" />
     <resource type="download" name="dynatable.js" location="apwide/env/gadget/vendor/jquery.dynatable.js" />
-    <resource type="download" name="application-picker.js" location="apwide/env/gadget/component/select2-picker.js" />
-    <resource type="download" name="environments-searcher.js" location="apwide/env/gadget/common/environments-searcher.js" />
-    <resource type="download" name="status-renderer.js" location="apwide/env/gadget/component/environment/status-renderer.js" />
-    <resource type="download" name="url-renderer.js" location="apwide/env/gadget/component/environment/url-renderer.js" />
-    <resource type="download" name="custom-property-renderer.js" location="apwide/env/gadget/component/environment/custom-property-renderer.js" />
-    <resource type="download" name="version-status-renderer.js" location="apwide/env/gadget/component/environment/version-status-renderer.js" />
-    <resource type="download" name="name-renderer.js" location="apwide/env/gadget/component/environment/name-renderer.js" />
 		<context>apwide-env-gadget-environments</context>
 	</web-resource>
 	<resource type="download" name="apwide-environments-gadget-messages.xml"
 		location="apwide/env/gadget/environments/environments-gadget-messages.xml">
 		<param name="content-type" value="text/xml; charset=UTF-8" />
 	</resource>
+
+  <!-- Timeline Gadget -->
+	<web-resource key="apwide-env-gadget-timeline-resources" name="apwide-env-gadget-timeline-resources">
+		<dependency>com.atlassian.auiplugin:ajs</dependency>
+    <dependency>com.atlassian.auiplugin:aui-select2</dependency>
+    <dependency>com.holydev.env.plugin.jira-holydev-env-plugin:common-timeline-resources</dependency>
+		<resource type="download" name="images/" location="apwide/env/gadget/timeline/images" />
+		<resource type="download" name="gadget.js" location="apwide/env/gadget/timeline/timeline-gadget.js" />
+    <resource type="download" name="gadget.css" location="apwide/env/gadget/timeline/timeline-gadget.css" />
+    <resource type="download" name="application-picker.js" location="apwide/env/gadget/component/select2-picker.js" />
+		<context>apwide-env-gadget-timeline</context>
+	</web-resource>
+	<resource type="download" name="apwide-timeline-gadget-messages.xml"
+		location="apwide/env/gadget/timeline/timeline-gadget-messages.xml">
+		<param name="content-type" value="text/xml; charset=UTF-8" />
+	</resource>
+
+  <gadget key="apwide-env-gadget-timeline" name="Apwide Timeline Gadget"
+		location="apwide/env/gadget/timeline/timeline-gadget.xml">
+		<description>Displays Apwide's timeline data</description>
+	</gadget>
+
 </atlassian-plugin>

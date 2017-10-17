@@ -1,0 +1,8 @@
+<messagebundle>
+  <msg name='gadget.timeline.title'>
+    Apwide Timeline
+  </msg>
+  <msg name='gadget.timeline.description'>
+    Display Apwide timeline information
+  </msg>
+</messagebundle>

@@ -1,4 +1,9 @@
 function searchEnvironmentsUrl (searchFilter) {
-  let params = AJS.$.param(searchFilter)
-  return '/rest/apwide/tem/1.1/environments/search?' + params
+  const url = '/rest/apwide/tem/1.1/environments/search'
+  if (searchFilter) {
+    let params = AJS.$.param(searchFilter)
+    return url + '?' + params
+  }else {
+    return url
+  }
 }
