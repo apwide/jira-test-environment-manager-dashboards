@@ -9,7 +9,9 @@ function toTableRecord (environment, customProperties) {
     category: environment.category.name,
     url: renderUrl(environment),
     status: renderStatus(environment),
-    deployedVersion: deployedVersion
+    deployedVersion: deployedVersion,
+    deployedVersionAndStatus: renderVersionStatus(environment),
+    name: renderName(environment)
   }
   for (let customProperty of customProperties) {
     record[customProperty.key] = renderCustomProperty(environment, customProperty.id)
@@ -43,6 +45,18 @@ function toTableRecords (environments, customProperties) {
       {
         name: 'Deployed Version',
         id: 'deployedVersion'
+      },
+      {
+        name: 'Version/Status',
+        id: 'deployedVersionAndStatus'
+      },
+      {
+        name: 'Name',
+        id: 'name'
+      },
+      {
+        name: 'Url',
+        id: 'url'
       }
     ]
 

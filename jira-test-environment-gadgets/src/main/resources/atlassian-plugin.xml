@@ -28,6 +28,8 @@
     <resource type="download" name="status-renderer.js" location="apwide/env/gadget/component/environment/status-renderer.js" />
     <resource type="download" name="url-renderer.js" location="apwide/env/gadget/component/environment/url-renderer.js" />
     <resource type="download" name="custom-property-renderer.js" location="apwide/env/gadget/component/environment/custom-property-renderer.js" />
+    <resource type="download" name="version-status-renderer.js" location="apwide/env/gadget/component/environment/version-status-renderer.js" />
+    <resource type="download" name="name-renderer.js" location="apwide/env/gadget/component/environment/name-renderer.js" />
 		<context>apwide-env-gadget-environments</context>
 	</web-resource>
 	<resource type="download" name="apwide-environments-gadget-messages.xml"
