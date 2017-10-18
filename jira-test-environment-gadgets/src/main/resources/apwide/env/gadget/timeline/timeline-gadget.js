@@ -26,7 +26,15 @@
       onResizeAdjustHeight: true,
       template: function (args) {
         let gadget = this
-        let output = `<div id="timeline-gadget"></div>`
+        let output =
+
+        `
+          <section class="aui-page-panel-content">
+            <div id="timeline-gadget">
+            </div>
+          </section>
+        `
+
         gadget.getView().html(output)
 
         function toGroup (environment) {
@@ -46,7 +54,7 @@
 
         function addItems (items, plannedEvents, calendars, toItems) {
           for (let plannedEvent of plannedEvents) {
-            console.log("Update items...")
+            console.log('Update items...')
             items.update(toItems(plannedEvent, calendars))
           }
         }
@@ -85,16 +93,25 @@
           multiselect: false,
           itemsAlwaysDraggable: false,
           editable: false,
-          moveable:true,
+          moveable: false,
           zoomKey: 'ctrlKey',
           groupTemplate: function (group) {
             let html =
-            `${group.name}`
+            `<h6 id="group-env-${group.id}" class="env-details-inline-dialog-trigger" data-id="${group.id}">
+              ${group.name}
+            </h6>`
             return html
           }
         }
 
         let timeline = new vis.Timeline(container, items, groups, options)
+
+        timelineNavigation('timeline-gadget', timeline, { moveable: false,  toggleFullScreen: false})
+
+        timeline.on('rangechanged', function (properties) {
+          console.log('range changed', moment(properties.start), moment(properties.end))
+          gadget.resize()
+        })
       },
       args: [
         {
