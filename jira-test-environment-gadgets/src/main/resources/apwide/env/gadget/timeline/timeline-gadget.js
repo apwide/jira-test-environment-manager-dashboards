@@ -28,7 +28,7 @@
         let gadget = this
         let output =
 
-        `
+        ` 
           <section class="aui-page-panel-content">
             <div id="timeline-gadget">
             </div>
@@ -40,7 +40,8 @@
         function toGroup (environment) {
           return {
             id: environment.application.name + '_' + environment.category.name,
-            name: renderName(environment)
+            name: renderName(environment),
+            key: environment.id
           }
         }
 
@@ -54,7 +55,6 @@
 
         function addItems (items, plannedEvents, calendars, toItems) {
           for (let plannedEvent of plannedEvents) {
-            console.log('Update items...')
             items.update(toItems(plannedEvent, calendars))
           }
         }
@@ -97,7 +97,7 @@
           zoomKey: 'ctrlKey',
           groupTemplate: function (group) {
             let html =
-            `<h6 id="group-env-${group.id}" class="env-details-inline-dialog-trigger" data-id="${group.id}">
+            `<h6 id="group-env-${group.key}" class="env-details-inline-dialog-trigger" data-id="${group.key}">
               ${group.name}
             </h6>`
             return html
@@ -107,6 +107,13 @@
         let timeline = new vis.Timeline(container, items, groups, options)
 
         timelineNavigation('timeline-gadget', timeline, { moveable: false,  toggleFullScreen: false})
+
+        initPlannedEventInlineDialog(items, timeline, false, calendars)
+        initIssueEventInlineDialog(items, timeline)
+        initDeploymentInlineDialog(items, false)
+
+        //TODO clean before using it!!
+        //bindInlineDialog('')
 
         timeline.on('rangechanged', function (properties) {
           console.log('range changed', moment(properties.start), moment(properties.end))
