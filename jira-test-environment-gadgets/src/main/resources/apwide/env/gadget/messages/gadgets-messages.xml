@@ -29,10 +29,10 @@
   <msg name='apwide.gadget.environments.description'>
     Display Apwide environments information
   </msg>
-  <msg name='apwide.gadget.environments.shown-columns'>
+  <msg name='apwide.environment.shown-columns'>
     Columns:
   </msg>
-  <msg name='apwide.gadget.environments.shown-columns.description'>
+  <msg name='apwide.environment.shown-columns.description'>
     Choose which columns should be displayed
   </msg>
   <msg name='apwide.gadget.timeline.title'>

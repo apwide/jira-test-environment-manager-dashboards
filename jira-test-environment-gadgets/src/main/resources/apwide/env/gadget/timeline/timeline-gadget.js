@@ -130,7 +130,7 @@
       ]
     }
   }
-  addSubtitle(gadgetDefinition, 'Apwide Timeline')
-  addEnvironmentsSearch(gadgetDefinition)
+  APWIDE.Subtitle.init(gadgetDefinition, 'Apwide Timeline')
+  APWIDE.EnvironmentSearcher.init(gadgetDefinition)
   let gadget = AJS.Gadget(gadgetDefinition)
 })()

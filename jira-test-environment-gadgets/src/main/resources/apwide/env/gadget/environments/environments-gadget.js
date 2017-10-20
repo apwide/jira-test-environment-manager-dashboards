@@ -31,12 +31,20 @@ function toTableRecords (environments, customProperties) {
   function getAllColumns (customProperties) {
     let shownColumns = [
       {
+        name: 'Name',
+        id: 'name'
+      },
+      {
         name: 'Application',
         id: 'application'
       },
       {
         name: 'Category',
         id: 'category'
+      },
+      {
+        name: 'Url',
+        id: 'url'
       },
       {
         name: 'Status',
@@ -49,14 +57,6 @@ function toTableRecords (environments, customProperties) {
       {
         name: 'Version/Status',
         id: 'deployedVersionAndStatus'
-      },
-      {
-        name: 'Name',
-        id: 'name'
-      },
-      {
-        name: 'Url',
-        id: 'url'
       }
     ]
 
@@ -97,7 +97,7 @@ function toTableRecords (environments, customProperties) {
           fields: [
             {
               id: 'shown-columns-picker',
-              label: gadget.getMsg('apwide.gadget.environments.shown-columns'),
+              label: gadget.getMsg('apwide.environment.shown-columns'),
               type: 'callbackBuilder',
               userpref: 'shown-columns',
               callback: function (parentDiv) {
@@ -180,7 +180,7 @@ function toTableRecords (environments, customProperties) {
       ]
     }
   }
-  addSubtitle(gadgetDefinition, 'Apwide Environments')
-  addEnvironmentsSearch(gadgetDefinition)
+  APWIDE.Subtitle.init(gadgetDefinition, 'Apwide Environments')
+  APWIDE.EnvironmentSearcher.init(gadgetDefinition)
   let gadget = AJS.Gadget(gadgetDefinition)
 })()
