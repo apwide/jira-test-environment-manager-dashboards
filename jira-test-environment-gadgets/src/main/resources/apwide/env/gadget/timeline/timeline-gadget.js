@@ -1,4 +1,12 @@
 ;(function () {
+  function getDefaultStart () {
+    return moment().add(-10, 'day').startOf('day')
+  }
+
+  function getDefaultEnd (start) {
+    return start.clone().add(30, 'day')
+  }
+
   let gadgetDefinition = {
     baseUrl: ATLASSIAN_BASE_URL,
     useOauth: '/rest/gadget/1.0/currentUser',
@@ -6,9 +14,29 @@
       args: [],
       descriptor: function (args) {
         let gadget = this
+        let defaultStart = getDefaultStart()
+        let defaultEnd = getDefaultEnd(defaultStart)
         return {
           fields: [
-            AJS.gadget.fields.nowConfigured() ]
+            AJS.gadget.fields.nowConfigured() ,
+            {
+              id: 'date-range-picker',
+              label: gadget.getMsg('apwide.environment.date-range-filter'),
+              type: 'callbackBuilder',
+              userpref: 'date-range-filter',
+              callback: function (parentDiv) {
+                parentDiv.append(APWIDE.gadget.DateRangePicker({
+                  gadget: gadget,
+                  parentDiv: parentDiv,
+                  prefNameStart: 'date-range-filter-start',
+                  prefNameEnd: 'date-range-filter-end',
+                  description: gadget.getMsg('apwide.environment.date-range.description'),
+                  defaultStart: defaultStart,
+                  defaultEnd: defaultEnd
+                }))
+              }
+            }
+          ]
         }
       }
     },
@@ -57,9 +85,21 @@
         // create visualization
         let container = document.getElementById('timeline-gadget')
 
-        let now = moment().minutes(0).seconds(0).milliseconds(0)
-        let start = now.clone().startOf('day').subtract('days', 10)
-        let end = now.clone().startOf('day').add('days', 10)
+        let start
+        let startPref = gadget.getPref('date-range-filter-start')
+        if (startPref) {
+          start = moment(Number(startPref))
+        }else {
+          start = getDefaultStart()
+        }
+
+        let end
+        let endPref = gadget.getPref('date-range-filter-end')
+        if (endPref) {
+          end = moment(Number(endPref))
+        }else {
+          end = getDefaultEnd(start)
+        }
 
         let options = {
           start: start,

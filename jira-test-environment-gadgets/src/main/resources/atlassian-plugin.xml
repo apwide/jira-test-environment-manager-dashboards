@@ -10,6 +10,7 @@
   <!-- Common resources -->
   <web-resource key="apwide-env-gadget-common-resources" name="apwide-env-gadget-common-resources">
     <resource type="download" name="select2-picker.js" location="apwide/env/gadget/component/common/select2-picker.js" />
+    <resource type="download" name="date-range-picker.js" location="apwide/env/gadget/component/common/date-range-picker.js" />
     <resource type="download" name="environments-searcher.js" location="apwide/env/gadget/component/environment-searcher/environment-searcher.js" />
     <resource type="download" name="subtitle.js" location="apwide/env/gadget/component/subtitle/subtitle.js" />
     <resource type="download" name="status-renderer.js" location="apwide/env/gadget/component/environment/status-renderer.js" />
@@ -52,6 +53,7 @@
 		<dependency>com.atlassian.auiplugin:ajs</dependency>
     <dependency>com.atlassian.auiplugin:aui-select2</dependency>
     <dependency>com.holydev.env.plugin.jira-holydev-env-plugin:common-timeline-resources</dependency>
+    <dependency>com.holydev.env.plugin.jira-holydev-env-plugin:holydev-env-plugin-env-plan-event-page-resources</dependency>
 		<resource type="download" name="images/" location="apwide/env/gadget/timeline/images" />
 		<resource type="download" name="gadget.js" location="apwide/env/gadget/timeline/timeline-gadget.js" />
     <resource type="download" name="gadget.css" location="apwide/env/gadget/timeline/timeline-gadget.css" />

@@ -1,4 +1,5 @@
 <messagebundle>
+
   <msg name='apwide.environment.application-filter'>
     Applications:
   </msg>
@@ -38,7 +39,15 @@
   <msg name='apwide.gadget.timeline.title'>
     Apwide Timeline
   </msg>
+
   <msg name='apwide.gadget.timeline.description'>
     Display Apwide timeline information
   </msg>
+  <msg name='apwide.environment.date-range-filter'>
+    From:
+  </msg>
+  <msg name='apwide.environment.date-range.description'>
+    Filter results in this date range
+  </msg>
+
 </messagebundle>
