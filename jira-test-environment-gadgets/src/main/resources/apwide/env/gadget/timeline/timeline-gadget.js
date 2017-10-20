@@ -7,18 +7,55 @@
     return start.clone().add(30, 'day')
   }
 
+  function getShowLogsPref () {
+    let showLogs = gadget.getPref('show-logs')
+    let showDeployments
+    let showStatusChanges
+
+    if (showLogs) {
+      showDeployments = showLogs.includes('deployments')
+      showStatusChanges = showLogs.includes('status-changes')
+    }else {
+      showDeployments = true
+      showStatusChanges = true
+    }
+    return {
+      showDeployments: showDeployments,
+      showStatusChanges: showStatusChanges
+    }
+  }
+
   let gadgetDefinition = {
     baseUrl: ATLASSIAN_BASE_URL,
     useOauth: '/rest/gadget/1.0/currentUser',
     config: {
-      args: [],
+      args: [{
+        key: 'calendars',
+        ajaxOptions: function () {
+          return {
+            url: '/rest/apwide/tem/1.1/calendars'
+          }
+        }
+      }],
       descriptor: function (args) {
         let gadget = this
         let defaultStart = getDefaultStart()
         let defaultEnd = getDefaultEnd(defaultStart)
+
+        function getAllCalendarIds () {
+          let calendarIds = []
+          for (let calendar of args.calendars) {
+            calendarIds.push(calendar.id)
+            console.log('calendar:', calendar)
+          }
+          console.log('calendar ids:', calendarIds)
+          return calendarIds
+        }
+
+        let showLogsPrefs = getShowLogsPref()
+
         return {
           fields: [
-            AJS.gadget.fields.nowConfigured() ,
             {
               id: 'date-range-picker',
               label: gadget.getMsg('apwide.environment.date-range-filter'),
@@ -35,7 +72,38 @@
                   defaultEnd: defaultEnd
                 }))
               }
-            }
+            },
+            {
+              id: 'calendar-picker',
+              label: gadget.getMsg('apwide.environment.calendar-filter'),
+              type: 'callbackBuilder',
+              userpref: 'calendar-filter',
+              callback: function (parentDiv) {
+                parentDiv.append(select2ValuePicker(gadget, parentDiv, args.calendars, 'calendar-filter', getAllCalendarIds()))
+              }
+            },
+            {
+              id: 'show-logs-select',
+              class: 'show-logs-selector-checkboxes',
+              userpref: 'show-logs',
+              label: gadget.getMsg('apwide.environment.show-logs'),
+              description: gadget.getMsg('apwide.environment.show-logs.description'),
+              type: 'checkbox',
+              options: [
+                { /* See Select Field for valid options */
+                  id: 'show-deployments',
+                  label: 'Deployed versions',
+                  value: 'deployments',
+                  selected: showLogsPrefs.showDeployments
+                },
+                {
+                  id: 'status-changes',
+                  label: 'Status changes',
+                  value: 'status-changes',
+                  selected: showLogsPrefs.showStatusChanges
+                }]
+            },
+            AJS.gadget.fields.nowConfigured()
           ]
         }
       }
@@ -78,6 +146,17 @@
         // init calendars
         let calendars = new vis.DataSet()
         calendars.update(args.calendars)
+
+        let shownCalendarsStringValue = gadgets.util.unescapeString(gadget.getPref('calendar-filter'))
+        let shownCalendarIds = stringToArray(shownCalendarsStringValue)
+
+        let showLogsPrefs = getShowLogsPref()
+        if (showLogsPrefs.showDeployments) {
+          shownCalendarIds.push('deployments')
+        }
+        if (showLogsPrefs.showStatusChanges) {
+          shownCalendarIds.push('status-changes')
+        }
 
         // create a dataset with items
         let items = new vis.DataSet()
@@ -124,14 +203,19 @@
           }
         }
 
-        let timeline = new vis.Timeline(container, items, groups, options)
+        let filteredItems = new vis.DataView(items, {
+          filter: function (event) {
+            return (shownCalendarIds.indexOf(event.calendar + '') >= 0)
+          }
+        })
+
+        let timeline = new vis.Timeline(container, filteredItems, groups, options)
 
         function loadEvents (items, calendars, timeline) {
           let timeWindow = timeline.getWindow()
           let start = moment(timeWindow.start)
           let end = moment(timeWindow.end)
 
-          items.clear()
           let statuschanges = getStatusChangesByDates(start, end, '')
           items.update(statuschanges)
           let deployments = getDeploymentsByDates(start, end, '')
@@ -152,6 +236,11 @@
 
         // TODO clean before using it!!
         // bindInlineDialog('')
+
+        setTimeout(function () {
+          console.log('Now everything is loaded!')
+          gadget.resize()
+        }, 500)
 
         timeline.on('rangechanged', function (properties) {
           loadEvents(items, calendars, timeline)

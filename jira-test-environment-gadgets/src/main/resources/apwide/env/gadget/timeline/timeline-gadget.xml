@@ -29,6 +29,8 @@
 	<UserPref name="status-filter" datatype="hidden" default_value="" />
 	<UserPref name="date-range-filter-start" datatype="hidden" default_value="" />
 	<UserPref name="date-range-filter-end" datatype="hidden" default_value="" />
+	<UserPref name="calendar-filter" datatype="hidden" default_value="" />
+	<UserPref name="show-logs" datatype="hidden" default_value="" />
 	<Content type="html" view="profile,canvas,home,wallboard">
         <![CDATA[
 				#requireResource("com.atlassian.jira.gadgets:common")

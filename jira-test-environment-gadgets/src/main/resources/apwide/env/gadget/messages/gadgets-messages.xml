@@ -50,4 +50,17 @@
     Filter results in this date range
   </msg>
 
+  <msg name='apwide.environment.calendar-filter'>
+    Calendars:
+  </msg>
+  <msg name='apwide.environment.calendar-filter.description'>
+    Choose calendars to display
+  </msg>
+  <msg name='apwide.environment.show-logs'>
+    Logs:
+  </msg>
+  <msg name='apwide.environment.show-logs.description'>
+    Choose which kind of logs to display
+  </msg>
+
 </messagebundle>
