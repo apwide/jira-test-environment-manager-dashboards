@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-	<ModulePrefs title="__MSG_gadget.timeline.title__"
-		description="__MSG_gadget.timeline.description__"
+	<ModulePrefs title="__MSG_apwide.gadget.timeline.title__"
+		description="__MSG_apwide.gadget.timeline.description__"
 		author="Apwide" author_email="support@apwide.com"
-		screenshot='#staticResourceUrl("com.apwide.test-environment-dashboard:apwide-env-gadget-timeline-resources", "images/timeline-gadget-screenshot.png")'
-		thumbnail='#staticResourceUrl("com.apwide.test-environment-dashboard:apwide-env-gadget-timeline-resources", "images/timeline-gadget-thumbnail.png")'
+		screenshot='#staticResourceUrl("com.apwide.test-environment-dashboard:apwide-env-gadget-timeline-resources", "images/gadget-screenshot.png")'
+		thumbnail='#staticResourceUrl("com.apwide.test-environment-dashboard:apwide-env-gadget-timeline-resources", "images/gadget-thumbnail.png")'
 		height="150">
 		<Optional feature="gadget-directory">
 			<Param name="categories">
@@ -19,8 +19,7 @@
 		<Require feature="settitle"/>
 		#oauth
 		#supportedLocales("gadget.common")
-		<Locale
-			messages="__ATLASSIAN_BASE_URL__/download/resources/com.apwide.test-environment-dashboard/apwide-timeline-gadget-messages.xml" />
+		<Locale messages="__ATLASSIAN_BASE_URL__/download/resources/com.apwide.test-environment-dashboard/gadgets-messages.xml" />
 	</ModulePrefs>
 	<UserPref name="subtitle" datatype="hidden" default_value="" />
 	<UserPref name="isConfigured" datatype="hidden" default_value="false" />
@@ -28,7 +27,6 @@
 	<UserPref name="application-filter" datatype="hidden" default_value="" />
 	<UserPref name="category-filter" datatype="hidden" default_value="" />
 	<UserPref name="status-filter" datatype="hidden" default_value="" />
-	<UserPref name="shown-columns" datatype="hidden" default_value="" />
 	<Content type="html" view="profile,canvas,home,wallboard">
         <![CDATA[
 				#requireResource("com.atlassian.jira.gadgets:common")

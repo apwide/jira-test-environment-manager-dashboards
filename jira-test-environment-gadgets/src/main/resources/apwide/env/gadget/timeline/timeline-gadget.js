@@ -1,23 +1,14 @@
 ;(function () {
-  let gadget = AJS.Gadget({
+  let gadgetDefinition = {
     baseUrl: ATLASSIAN_BASE_URL,
     useOauth: '/rest/gadget/1.0/currentUser',
     config: {
-      args: [
-        {
-          key: 'environments',
-          ajaxOptions: function () {
-            return {
-              url: searchEnvironmentsUrl()
-            }
-          }
-        }
-      ],
+      args: [],
       descriptor: function (args) {
         let gadget = this
-
         return {
-          fields: [ AJS.gadget.fields.nowConfigured() ]
+          fields: [
+            AJS.gadget.fields.nowConfigured() ]
         }
       }
     },
@@ -28,7 +19,7 @@
         let gadget = this
         let output =
 
-        ` 
+        `
           <section class="aui-page-panel-content">
             <div id="timeline-gadget">
             </div>
@@ -53,12 +44,6 @@
           return groups
         }
 
-        function addItems (items, plannedEvents, calendars, toItems) {
-          for (let plannedEvent of plannedEvents) {
-            items.update(toItems(plannedEvent, calendars))
-          }
-        }
-
         // get the data set with groups
         let groups = toGroups(args.environments)
 
@@ -68,11 +53,6 @@
 
         // create a dataset with items
         let items = new vis.DataSet()
-
-        addItems(items, args.statusChanges, calendars, statusChangeToItem)
-        addItems(items, args.deployments, calendars, deploymentToItem)
-        addItems(items, args.plannedEvents, calendars, plannedEventToItems)
-        addItems(items, args.issueEvents, calendars, issueEventToItems)
 
         // create visualization
         let container = document.getElementById('timeline-gadget')
@@ -106,60 +86,39 @@
 
         let timeline = new vis.Timeline(container, items, groups, options)
 
+        function loadEvents (items, calendars, timeline) {
+          let timeWindow = timeline.getWindow()
+          let start = moment(timeWindow.start)
+          let end = moment(timeWindow.end)
+
+          items.clear()
+          let statuschanges = getStatusChangesByDates(start, end, '')
+          items.update(statuschanges)
+          let deployments = getDeploymentsByDates(start, end, '')
+          items.update(deployments)
+          let plannedevents = getPlannedEventsByDates(start, end, calendars, '')
+          items.update(plannedevents)
+          let issueEvents = getIssueEventsByDates(start, end, calendars, '')
+          items.update(issueEvents)
+        }
+
+        loadEvents(items, calendars, timeline)
+
         timelineNavigation('timeline-gadget', timeline, { moveable: false,  toggleFullScreen: false})
 
         initPlannedEventInlineDialog(items, timeline, false, calendars)
         initIssueEventInlineDialog(items, timeline)
         initDeploymentInlineDialog(items, false)
 
-        //TODO clean before using it!!
-        //bindInlineDialog('')
+        // TODO clean before using it!!
+        // bindInlineDialog('')
 
         timeline.on('rangechanged', function (properties) {
-          console.log('range changed', moment(properties.start), moment(properties.end))
+          loadEvents(items, calendars, timeline)
           gadget.resize()
         })
       },
       args: [
-        {
-          key: 'environments',
-          ajaxOptions: function () {
-            return {
-              url: searchEnvironmentsUrl()
-            }
-          }
-        }, {
-          key: 'statusChanges',
-          ajaxOptions: function () {
-            return {
-              url: '/rest/holydev/1.0/status-changes'
-            }
-          }
-        },
-        {
-          key: 'deployments',
-          ajaxOptions: function () {
-            return {
-              url: '/rest/holydev/1.0/deployments'
-            }
-          }
-        },
-        {
-          key: 'plannedEvents',
-          ajaxOptions: function () {
-            return {
-              url: '/rest/holydev/1.0/plan/events'
-            }
-          }
-        },
-        {
-          key: 'issueEvents',
-          ajaxOptions: function () {
-            return {
-              url: '/rest/holydev/1.0/issue-events?start=2016-01-01&end=2018-01-01'
-            }
-          }
-        },
         {
           key: 'calendars',
           ajaxOptions: function () {
@@ -170,5 +129,8 @@
         }
       ]
     }
-  })
+  }
+  addSubtitle(gadgetDefinition, 'Apwide Timeline')
+  addEnvironmentsSearch(gadgetDefinition)
+  let gadget = AJS.Gadget(gadgetDefinition)
 })()

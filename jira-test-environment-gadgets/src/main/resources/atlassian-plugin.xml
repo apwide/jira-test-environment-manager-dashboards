@@ -9,8 +9,9 @@
 
   <!-- Common resources -->
   <web-resource key="apwide-env-gadget-common-resources" name="apwide-env-gadget-common-resources">
-    <resource type="download" name="select2-picker.js" location="apwide/env/gadget/component/select2-picker.js" />
-    <resource type="download" name="environments-searcher.js" location="apwide/env/gadget/common/environments-searcher.js" />
+    <resource type="download" name="select2-picker.js" location="apwide/env/gadget/component/common/select2-picker.js" />
+    <resource type="download" name="environments-searcher.js" location="apwide/env/gadget/component/environment-searcher/environment-searcher.js" />
+    <resource type="download" name="subtitle.js" location="apwide/env/gadget/component/subtitle/subtitle.js" />
     <resource type="download" name="status-renderer.js" location="apwide/env/gadget/component/environment/status-renderer.js" />
     <resource type="download" name="url-renderer.js" location="apwide/env/gadget/component/environment/url-renderer.js" />
     <resource type="download" name="custom-property-renderer.js" location="apwide/env/gadget/component/environment/custom-property-renderer.js" />
@@ -18,6 +19,12 @@
     <resource type="download" name="name-renderer.js" location="apwide/env/gadget/component/environment/name-renderer.js" />
     <dependency>com.holydev.env.plugin.jira-holydev-env-plugin:common-resources</dependency>
 	</web-resource>
+
+  <!-- Messages for all gadgets-->
+  <resource type="download" name="gadgets-messages.xml"
+    location="apwide/env/gadget/messages/gadgets-messages.xml">
+    <param name="content-type" value="text/xml; charset=UTF-8" />
+  </resource>
 
 
   <!-- GADGETS -->
@@ -38,10 +45,7 @@
     <resource type="download" name="dynatable.js" location="apwide/env/gadget/vendor/jquery.dynatable.js" />
 		<context>apwide-env-gadget-environments</context>
 	</web-resource>
-	<resource type="download" name="apwide-environments-gadget-messages.xml"
-		location="apwide/env/gadget/environments/environments-gadget-messages.xml">
-		<param name="content-type" value="text/xml; charset=UTF-8" />
-	</resource>
+
 
   <!-- Timeline Gadget -->
 	<web-resource key="apwide-env-gadget-timeline-resources" name="apwide-env-gadget-timeline-resources">
@@ -51,13 +55,10 @@
 		<resource type="download" name="images/" location="apwide/env/gadget/timeline/images" />
 		<resource type="download" name="gadget.js" location="apwide/env/gadget/timeline/timeline-gadget.js" />
     <resource type="download" name="gadget.css" location="apwide/env/gadget/timeline/timeline-gadget.css" />
-    <resource type="download" name="application-picker.js" location="apwide/env/gadget/component/select2-picker.js" />
 		<context>apwide-env-gadget-timeline</context>
 	</web-resource>
-	<resource type="download" name="apwide-timeline-gadget-messages.xml"
-		location="apwide/env/gadget/timeline/timeline-gadget-messages.xml">
-		<param name="content-type" value="text/xml; charset=UTF-8" />
-	</resource>
+
+
 
   <gadget key="apwide-env-gadget-timeline" name="Apwide Timeline Gadget"
 		location="apwide/env/gadget/timeline/timeline-gadget.xml">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-	<ModulePrefs title="__MSG_gadget.environments.title__"
-		description="__MSG_gadget.environments.description__"
+	<ModulePrefs title="__MSG_apwide.gadget.environments.title__"
+		description="__MSG_apwide.gadget.environments.description__"
 		author="Apwide" author_email="support@apwide.com"
 		screenshot='#staticResourceUrl("com.apwide.test-environment-dashboard:apwide-env-gadget-environments-resources", "images/environments-gadget-screenshot.png")'
 		thumbnail='#staticResourceUrl("com.apwide.test-environment-dashboard:apwide-env-gadget-environments-resources", "images/environments-gadget-thumbnail.png")'
@@ -20,8 +20,7 @@
 		<Require feature="settitle"/>
 		#oauth
 		#supportedLocales("gadget.common")
-		<Locale
-			messages="__ATLASSIAN_BASE_URL__/download/resources/com.apwide.test-environment-dashboard/apwide-environments-gadget-messages.xml" />
+		<Locale messages="__ATLASSIAN_BASE_URL__/download/resources/com.apwide.test-environment-dashboard/gadgets-messages.xml" />
 	</ModulePrefs>
 	<UserPref name="subtitle" datatype="hidden" default_value="" />
 	<UserPref name="isConfigured" datatype="hidden" default_value="false" />

@@ -1,7 +1,7 @@
 function select2ValuePicker (gadget, parentDiv, allValues, name, defaultValues) {
   let currentStringValue = gadgets.util.unescapeString(gadget.getPref(name))
   let currentValues = stringToArray(currentStringValue)
-  let description = gadget.getMsg(`gadget.environments.${name}.description`)
+  let description = gadget.getMsg(`apwide.environment.${name}.description`)
 
   if (currentValues.length <= 0 && defaultValues && defaultValues.length > 0) {
     currentValues = defaultValues
